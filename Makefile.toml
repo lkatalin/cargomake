@@ -1,0 +1,17 @@
+[env]
+CARGO_MAKE_EXTEND_WORKSPACE_MAKEFILE = "true"
+CARGO_MAKE_WORKSPACE_EMULATION = true
+CARGO_MAKE_CRATE_WORKSPACE_MEMBERS = [
+        "regularcrate1",
+        "regularcrate2",
+        "topleveltestcrate"
+]
+
+[tasks.test]
+env = { "CARGO_MAKE_WORKSPACE_SKIP_MEMBERS" = ["topleveltestcrate"] }
+
+[tasks.post-test]
+env = { "CARGO_MAKE_WORKSPACE_SKIP_MEMBERS" = "", "CARGO_MAKE_WORKSPACE_INCLUDE_MEMBERS" = ["topleveltestcrate"] }
+run_task = "test-with-args"
+
+
